@@ -14,5 +14,18 @@ module.exports = {
                 await interaction.reply({content: "There was an error while executing this command... oops!", ephemeral: true})
             }
         }
+        else if (interaction.isButton()) {
+            const { buttons } = client
+            const { customId } = interaction
+            const button = buttons.get(customId)
+            if (!button) return new Error("Button not found 😢")
+
+            try {
+                await button.execute(interaction, client)
+            } catch (error) {
+                console.error(error)
+                await interaction.reply({content: "There was an error while executing this button... oops!", ephemeral: true})
+            }
+        }
     }
 }

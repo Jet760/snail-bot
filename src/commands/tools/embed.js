@@ -1,5 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
+const stickBugVideo = process.env.stickBugVideo
+
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('embed')
@@ -20,9 +22,9 @@ module.exports = {
             author: {
                 name: interaction.user.tag,
                 icon_url: interaction.user.displayAvatarURL(),
-                url: "https://www.youtube.com/watch?v=fC7oUOUEEi4"
+                url: stickBugVideo
             },
-            url: "https://www.youtube.com/watch?v=fC7oUOUEEi4",
+            url: stickBugVideo,
             fields: [
                 {
                     name: "Field 1",
