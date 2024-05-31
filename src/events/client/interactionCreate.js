@@ -27,5 +27,18 @@ module.exports = {
                 await interaction.reply({content: "There was an error while executing this button... oops!", ephemeral: true})
             }
         }
+        else if (interaction.isStringSelectMenu()) {
+            const { selectMenus } = client
+            const { customId } = interaction
+            const menu = selectMenus.get(customId)
+            if (!menu) return new Error("Select menu not found 😢")
+
+            try {
+                await menu.execute(interaction, client)
+            } catch (error) {
+                console.error(error)
+                await interaction.reply({content: "There was an error while executing this select menu... oops!", ephemeral: true})
+            }
+        }
     }
 }
