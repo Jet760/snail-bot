@@ -1,3 +1,5 @@
+const { InteractionType } = require("discord.js")
+
 module.exports = {
     name: "interactionCreate",
     async execute(interaction, client) {
@@ -38,6 +40,19 @@ module.exports = {
             } catch (error) {
                 console.error(error)
                 await interaction.reply({content: "There was an error while executing this select menu... oops!", ephemeral: true})
+            }
+        }
+        else if (interaction.type == InteractionType.ModalSubmit) {
+            const { modals } = client
+            const { customId } = interaction
+            const modal = modals.get(customId)
+            if (!modal) return new Error("Modal not found 😢")
+
+            try {
+                await modal.execute(interaction, client)
+            } catch (error) {
+                console.error(error)
+                await interaction.reply({content: "There was an error while executing this modal... oops!", ephemeral: true})
             }
         }
     }
